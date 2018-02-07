@@ -1,14 +1,11 @@
 # Chatting
-----------------------------
 A chat application built with Node.js + Websocket.
 
-# Features
-----------------------------
+## Features
 - send message
 - support local area network users 
 
-# How to run
-----------------------------
+## How to run
 1. download the code then extract
 2. modify index.html 
 ```
