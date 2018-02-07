@@ -1,0 +1,44 @@
+<html>
+    <head>
+	   <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <div id="historyMsg">
+			
+            </div>
+            <div class="controls" >
+				<textarea id="messageInput" placeHolder="enter to send"></textarea>
+                <input id="sendBtn" type="button" value="SEND">
+            </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+			var socket=io.connect('http://172.31.80.175:8080');
+
+			document.getElementById('sendBtn').addEventListener('click',function(){
+			var messageInput = document.getElementById('messageInput'),
+			msg = messageInput.value;
+			messageInput.value = '';
+			messageInput.focus();
+			if (msg.trim().length != 0) {
+			socket.emit('postMsg', msg);
+			_displayNewMsg(msg);
+			};
+		});
+		socket.on('newMsg', function(msg) {
+			_displayNewMsg(msg);
+		});
+			
+		var  _displayNewMsg=function(msg) {
+			var container = document.getElementById('historyMsg');
+			msgToDisplay = document.createElement('p');
+			msgToDisplay.innerHTML =msg;
+			container.appendChild(msgToDisplay);
+			container.scrollTop = container.scrollHeight;
+		}
+		
+	
+		</script>
+    </body>
+</html>
